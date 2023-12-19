@@ -4,7 +4,7 @@ module.exports.CreateOrder = async (req,res) => {
 
     try {
 
-        const { userId, productId, productPrice, orderAmount, totalPrice, deliver, deliverAddress, paymentInfo, status, createdAt } = req.body;
+        const { userId, productId, productPrice, orderAmount, totalPrice, deliver, deliverAddress, paymentInfo, orderStatus, createdAt } = req.body;
 
         if(!(deliver && deliverAddress)){
             return res.json({ message: "Dilver Address is required.", success: false })
@@ -91,6 +91,31 @@ module.exports.OrderDetails = async (req,res) => {
             res
                 .status(201)
                 .json({ message: "Order details found.", success: true, orderDetails: order});
+        }
+        
+    } catch (error) {
+        
+        console.error(error);
+        res.status(500).json({ message: "An error occurred.", success: false });
+
+    }
+
+}
+
+module.exports.UserOrders = async (req,res) => {
+
+    try {
+
+        const orders = await Order.findById(req.params.id);
+
+        if (!orders) {
+            return res.status(400).json({message:"Order not found.", success: true,});
+        }
+
+        if (orders) {
+            res
+                .status(201)
+                .json({ message: "Order details found.", success: true, orderDetails: orders});
         }
         
     } catch (error) {

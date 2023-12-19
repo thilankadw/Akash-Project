@@ -27,7 +27,7 @@ module.exports.Signup = async (req, res) => {
 
       res
       .status(201)
-      .json({ message: "User signed in successfully", success: true, accessToken: accessToken, refreshToken: refreshToken, userId: user._id});
+      .json({ message: "User signed in successfully", success: true, accessToken: accessToken, refreshToken: refreshToken, userId: user._id, userDetails: user });
     }
 
   }catch (error) {
@@ -66,7 +66,7 @@ module.exports.Login = async (req, res) => {
 
     res
       .status(201)
-      .json({ message: "User logged in successfully", success: true, refreshToken: refreshToken, accessToken: accessToken, userId: user._id });
+      .json({ message: "User logged in successfully", success: true, refreshToken: refreshToken, accessToken: accessToken, userId: user._id, userDetails: user });
 
   } catch (error) {
 
@@ -95,3 +95,27 @@ module.exports.RefreshAccessToken = async (req, res) => {
 
   }
 };
+
+module.exports.GetUserDetails = async (req,res) => {
+
+  try {
+
+    const user = await User.findById(req.params.id);
+
+    if (!user) {
+        return res.status(400).json({message:"Order not found.", success: true,});
+    }
+
+    if (user) {
+        res
+            .status(201)
+            .json({ message: "Order details found.", success: true, userDetails: user});
+    }
+    
+} catch (error) {
+    
+    console.error(error);
+    res.status(500).json({ message: "An error occurred.", success: false });
+
+}
+}

@@ -5,68 +5,46 @@ const orderSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    shippingEmail: {
+    productId: {
         type: String,
         required: true
     },
-    shippingDetails: {
-        firstName: {
-            type: String,
-            required: [true, "First name is required"]
-        },
-        lastName: {
-            type: String,
-        },
-        apartment: {
-            type: String,
-            required: true
-        },
-        street: {
-            type: String,
-            required: [true, "Street is required"]
-        },
-        city: {
-            type: String,
-            required: [true, "City is required"]
-        },
-        country: {
-            type: String,
-            required: [true, "Country is required"]
-        },
-        postalCode: {
-            type: String,
-            required: [true, "Postal code is required"]
-        },
+    productPrice: {
+        type: Number
     },
-    productList: [{
-        productId: {
-            type: String,
-            required: true
-        },
-        productName: {
-            type: String,
-            required: true
-        },
-        productPrice: {
-            type: Number,
-            required: true
-        },
-        productQuantity: {
-            type: Number,
-            required: true
-        },
-        productSize: {
-            type: String,
-            required: true
-        },   
-    }],  // Array of products
-    shippingMethod: {
-        type: String,
-        required: true
-    },
-    totalAmount: {
+    orderAmount: {
         type: Number,
         required: true
+    },
+    totalPrice: {
+        type: Number,
+        required: true
+    },
+    deliver: {
+        type: Boolean,
+        default: false
+    },
+    deliverAddress: {
+        type: String,
+    },
+    paymentInfo: {
+        paymentStatus: {
+            type: String
+        },
+        type: {
+            type: String
+        }
+    },
+    orderStatus: {
+        type: String,
+        default: "Processing"
+    },
+    createdAt: {
+        type: Date,
+        default: Date.now()
+    },
+    deliveredAt: {
+        type: Date
     }
 });
 
