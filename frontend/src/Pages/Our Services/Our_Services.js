@@ -16,9 +16,9 @@ const OurServices = () => {
 
         <>
             <div>
-                <Header fontcolor='#fff' hoverfontcolor='#fff'/>
+                <Header/>
 
-                <div className='flex justify-center mt-[80px]'>
+                <div className='flex justify-center mt-[100px]'>
                     <img src={HeaderImage} className='w-full'></img>
                     <div className={`${styles.h4_70} absolute top-[230px] text-[#fff]`}>Our Services</div>
                 </div>

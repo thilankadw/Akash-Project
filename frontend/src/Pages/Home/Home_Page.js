@@ -25,18 +25,17 @@ const HomePage = () => {
     return (
 
         <>
-            <div className='flex justify-center'>
-                <Header fontcolor='#fff' hoverfontcolor='#fff'/>
-                <div className="container flex flex-col justify-center absolute top-0 z-0">
+            
+            <div className='flex justify-center w-full'>
 
-                    <div className="container flex justify-center relative">
+                <Header/>                                                                                                   
+                
+                <div className="flex flex-col justify-center items-center">
 
-                        <img src={MainImage} className="w-full"/>
-                        <div className="absolute top-0 left-0 w-full h-full bg-[#000000] opacity-40"></div>
-                        <div className="absolute top-[227px] flex justify-center text-[180px] uppercase font-[300] leading-[160px] text-[#fff] text-center">Your style reflection</div>
-                        <div className='absolute top-[578px] flex justify-center text-[34px] capitalize font-[400] leading-normal text-[#fff] text-center'>Furniture that fits and hits home</div>
-                        <Link to='/' className={`${styles.body_14_regular} uppercase text-[#fff] absolute top-[700px] bg-white bg-opacity-50 backdrop-blur-4 px-[48px] py-[14px] rounded-[25px] w-[260px] flex justify-center gap-[13px]`}>View Collection<ArrowForwardIcon/></Link>
-
+                    <div className="flex flex-col justify-center items-center bg-cover bg-center mt-[90px] w-full h-auto py-[50px] gap-[50px]" style={{ backgroundImage: `url(${MainImage})` }}>
+                        <div className=" text-[60px] md:text-[180px] uppercase font-[300] leading-[66px] md:leading-[160px] w-full text-[#fff] text-center">Your style<br/>reflection</div>
+                        <div className=' text-[34px] capitalize font-[400] leading-normal text-[#fff] text-center'>Furniture that fits and hits home</div>
+                        <div className=''><Link to='/shop' className={`${styles.body_14_regular} uppercase text-[#fff] bg-white bg-opacity-50 backdrop-blur-4 px-[48px] py-[14px] rounded-[25px] w-[260px] flex justify-center gap-[13px]`}>View Collection<ArrowForwardIcon /></Link></div>
                     </div>
 
                     <div className="container flex flex-col justify-center relative bg-[#E9EADD] pb-[132px]">
@@ -80,7 +79,7 @@ const HomePage = () => {
 
                                     <div className={`${styles.body_40_light}`}>Choose the change</div>
                                     <div className={`${styles.paragraph_16} mt-[20px]`}>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. In dictum non consectetur a erat nam at lectus.</div>
-                                    <Link to='/' className={`${styles.body_14_regular} uppercase px-[48px] py-[14px] w-[260px] flex justify-center gap-[13px] mt-[56px] border border-black rounded-[25px]`}>View Collection<ArrowForwardIcon/></Link>
+                                    <Link to='/shop' className={`${styles.body_14_regular} uppercase px-[48px] py-[14px] w-[260px] flex justify-center gap-[13px] mt-[56px] border border-black rounded-[25px]`}>View Collection<ArrowForwardIcon/></Link>
 
                                 </div>
 
@@ -151,7 +150,7 @@ const HomePage = () => {
                         <div className='w-[455px] relative top-[-50px]'>
 
                             <div className={`${styles.h8_40} w-[455px]`}>Everything is designed. Few things are designed well</div>
-                            <Link to='/' className={`${styles.body_14_regular} uppercase px-[48px] py-[14px] w-[250px] flex justify-center gap-[13px] mt-[56px] border border-black rounded-[25px]`}>Learn More<ArrowForwardIcon/></Link>
+                            <Link to='/about-us' className={`${styles.body_14_regular} uppercase px-[48px] py-[14px] w-[250px] flex justify-center gap-[13px] mt-[56px] border border-black rounded-[25px]`}>Learn More<ArrowForwardIcon/></Link>
                             <img src={HeroImage9} className='absolute right-[-120px] top-[190px] scale-8'/>
 
                         </div>
@@ -178,14 +177,12 @@ const HomePage = () => {
                                 <div>Let your home feel</div>
                                 <div className='text-[#D0D0D0]'>the style</div>
                             </div>
-                            <Link to='/' className={`${styles.body_14_regular} uppercase px-[48px] py-[14px] w-[250px] flex justify-center gap-[13px] border border-black rounded-[25px]`}>Get in touch<ArrowForwardIcon/></Link>
+                            <Link to='/contact-us' className={`${styles.body_14_regular} uppercase px-[48px] py-[14px] w-[250px] flex justify-center gap-[13px] border border-black rounded-[25px]`}>Get in touch<ArrowForwardIcon/></Link>
 
                     </div>
                     
                     <Footer />
                 </div>
-
-                <Footer />
             </div>
         </>
 

@@ -8,7 +8,7 @@ const ContactUs = () => {
 
         <>
             <div>
-                <Header fontcolor='#fff' hoverfontcolor='#fff'/>
+                <Header/>
 
                 <div className='flex justify-center'>
 

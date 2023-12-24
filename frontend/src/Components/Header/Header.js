@@ -1,35 +1,54 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import Logo from '../../Assets/Logo/logowhite.png';
+import Logo from '../../Assets/Logo/logoblack.png';
 import styles from '../../Styles/styles';
+import MenuIcon from '@mui/icons-material/Menu';
 
-const Header = (props) => {
-    const [isHovered, setIsHovered] = useState(false);
+const Header = () => {
 
-    const regularStyles = {
-        color: props.fontcolor
-    };
-
-    const hoverStyles = {
-        color: props.hoverfontcolor
-    };
+    const [open, setopen] = useState(false);
 
     return (
         <>
-            <div className={`flex justify-center `} onMouseEnter={() => setIsHovered(true)} onMouseLeave={() => setIsHovered(false)}>
-                <div className='fixed top-0 left-0 right-0 z-10 py-[20px] px-[80px] flex justify-center items-center gap-[560px] bg-black'>
-                    <div><img src={Logo} className='w-[109px] h-[22px]' alt="Logo" /></div>
-                    <div className='flex items-center gap-[60px]'>
-                        <Link to='/' className={`${styles.body_14_regular}`} style={isHovered ? hoverStyles : regularStyles}>Home</Link>
-                        <Link to='/services' className={`${styles.body_14_regular} text-[#fff]`} style={isHovered ? hoverStyles : regularStyles}>Services</Link>
-                        <Link to='/' className={`${styles.body_14_regular} text-[#fff]`} style={isHovered ? hoverStyles : regularStyles}>About Us</Link>
-                        <Link to='/' className={`${styles.body_14_regular} text-[#fff]`} style={isHovered ? hoverStyles : regularStyles}>Shop</Link>
-                        <Link to='/contact-us' className={`${styles.body_14_regular} text-[#fff]`} style={isHovered ? hoverStyles : regularStyles}>Contact</Link>
-                        <Link to='/' className={`${styles.body_14_extrabold} py-[11px] px-[30px] rounded-[20px] bg-[#EFF422]`}>
-                            {true ? `Cart(0)` : `Cart(0)`}
-                        </Link>
+            <div className={`flex justify-center`} >
+
+                <div className='fixed top-0 left-0 right-0 z-10 py-[20px] px-[80px] flex flex-shrink flex-col md:flex-row items-center justify-center md:gap-[350px] bg-white'>
+
+                    <div class="p-4 flex flex-row items-center justify-center gap-[180px]">
+                        <div className='w-[109px] h-[22px]'><Link to='/'><img src={Logo} className='w-[109px] h-[22px]' alt="Logo" /></Link></div>
+                        <button class="md:hidden rounded-lg focus:outline-none focus:shadow-outline" onClick={() => {setopen(!open)}}>
+                            <MenuIcon />
+                        </button>
                     </div>
-                </div>
+
+                    <div className={` ${open ? 'flex' : 'hidden'} md:flex flex-col md:flex-row items-center justify-center gap-[20px] md:gap-[60px]`}>
+                        <div className='w-max'>
+                            <Link to='/' className={`${styles.body_14_regular} text-[#000]`} >Home</Link>
+                        </div>
+                        <div className='w-max'>
+                            <Link to='/services' className={`${styles.body_14_regular} text-[#000]`}>Services</Link>
+                        </div>
+                        <div className='w-max'>
+                            <Link to='/about-us' className={`${styles.body_14_regular} text-[#000] `}>About Us</Link>
+                        </div>
+                        <div className='w-max'>
+                            <Link to='/shop' className={`${styles.body_14_regular} text-[#000]`}>Shop</Link>
+                        </div>
+                        <div className='w-max'>
+                            <Link to='/contact-us' className={`${styles.body_14_regular} text-[#000]`}>Contact</Link>
+                        </div>
+                        <div className='w-max'>
+                            <Link to='/login' className={`${styles.body_14_regular} text-[#000]`}>Login</Link>
+                        </div>
+                        <div className='w-max'>
+                            <Link to='/cart' className={`${styles.body_14_extrabold} py-[11px] px-[30px] rounded-[20px] bg-[#EFF422]`}>
+                                {true ? `Cart(0)` : `Cart(0)`}
+                            </Link> 
+                        </div>
+                    </div>
+
+                </div>            
+
             </div>
         </>
     );
