@@ -13,10 +13,10 @@ const productSchema = new mongoose.Schema({
         type: Number,
         required: true
     },
-    deliveryAvailable: {
-        type: Boolean,
+    productColor: {
+        type: String,
     },
-    productImage: {
+    productImageLinks: {
         type: String,
     },
     productDescription: {

@@ -1,9 +1,10 @@
 const { CreateOrder, UpdateOrderStatus, OrderDetails, AllOrders } = require('../controllers/orderController')
 const router = require('express').Router();
+const { isAuthenticated } = require('../middleware/auth');
 
-router.post('/create-order', CreateOrder);
-router.get('/all-orders', AllOrders);
-router.get('/order-details/:id', OrderDetails);
-router.put('/update-status/:id', UpdateOrderStatus);
+router.post('/create-order/:id', isAuthenticated, CreateOrder);
+router.get('/all-orders', isAuthenticated, AllOrders);
+router.get('/order-details/:id', isAuthenticated, OrderDetails);
+router.put('/update-status/:id', isAuthenticated, UpdateOrderStatus);
 
 module.exports = router;

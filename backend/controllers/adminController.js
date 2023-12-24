@@ -1,5 +1,4 @@
 const Product = require("../models/productModel");
-const Harvest = require("../models/harvestModel");
 const uploadImage = require("../utils/uploadImage");
 
 module.exports.AddProduct = async (req,res) => {

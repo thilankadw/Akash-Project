@@ -7,7 +7,7 @@ module.exports.Signup = async (req, res) => {
 
   try {
 
-    const { firstname, lastname, email, contactNumber, address, password, userrole } = req.body;
+    const { email, password } = req.body;
 
     const existingUser = await User.findOne({ email });
 
@@ -15,7 +15,7 @@ module.exports.Signup = async (req, res) => {
       return res.status(400).json({ message: "User already exists", success: false });
     }
 
-    const user = await User.create({ firstname, lastname, email, contactNumber, address, password, userrole});
+    const user = await User.create({ email, password });
 
     if (!user) {
       return res.status(400).json({ message: "Registration Uis not sucess.", success: false });
@@ -27,7 +27,7 @@ module.exports.Signup = async (req, res) => {
 
       res
       .status(201)
-      .json({ message: "User signed in successfully", success: true, accessToken: accessToken, refreshToken: refreshToken, userId: user._id, userDetails: user });
+      .json({ message: "User signed in successfully", success: true, accessToken: accessToken, refreshToken: refreshToken, userId: user._id });
     }
 
   }catch (error) {
@@ -66,7 +66,7 @@ module.exports.Login = async (req, res) => {
 
     res
       .status(201)
-      .json({ message: "User logged in successfully", success: true, refreshToken: refreshToken, accessToken: accessToken, userId: user._id, userDetails: user });
+      .json({ message: "User logged in successfully", success: true, refreshToken: refreshToken, accessToken: accessToken, userId: user._id });
 
   } catch (error) {
 

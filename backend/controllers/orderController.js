@@ -4,19 +4,24 @@ module.exports.CreateOrder = async (req,res) => {
 
     try {
 
-        const { userId, productId, productPrice, orderAmount, totalPrice, deliver, deliverAddress, paymentInfo, orderStatus, createdAt } = req.body;
+        const { items, totalAmount } = req.body;
 
-        if(!(deliver && deliverAddress)){
-            return res.json({ message: "Dilver Address is required.", success: false })
+        const userId = req.params.id;
+
+        if(!(items && totalAmount)){
+            console.log("Required information are missing");
+            return res.json({ message: "Required information are missing.", success: false })
         }
 
-        const order = await Order.create({ userId, productId, productPrice, orderAmount, totalPrice, deliver, deliverAddress, paymentInfo, status, createdAt });
+        const order = await Order.create({ userId, items, totalAmount });
 
         if (!order) {
+            console.log("Order not success.");
             return res.status(400).json({ message: "Order not success.", success: false });
         }
       
         if(order){
+            console.log("Order placed successfully.");
             res
             .status(201)
             .json({ message: "Order placed successfully.", success: true});
