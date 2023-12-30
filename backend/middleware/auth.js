@@ -7,13 +7,13 @@ module.exports.isAuthenticated = catchAsyncErrors(async(req,res,next) => {
     const token = req.header('Authorization');
 
     if(!token){
-        console.log("Login Error (Missing token")
+        console.log("Login Error (Missing token)")
         return next(new ErrorHandler("Please login to continue", 401));
     }
 
     jwt.verify(token.replace('Bearer ', ''), process.env.ACCESS_TOKEN_SECRET_KEY, (err, decoded) => {                                                        
         if (err) {
-            console.log("Login Error (Missing token")  
+            console.log(err)  
             return next(new ErrorHandler("Please login to continue", 401));
         }
         

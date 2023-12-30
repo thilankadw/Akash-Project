@@ -1,8 +1,11 @@
 import Footer from '../../Components/Footer/Footer';
 import Header from '../../Components/Header/Header';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
+import { useNavigate } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { register, login, reset } from '../../features/auth/authSlice';
 
 const Login = () => {
 
@@ -15,6 +18,68 @@ const Login = () => {
         setPasswordType((prevType) => (prevType === 'password' ? 'text' : 'password'));
         setIsPasswordVisible((prevVisibility) => !prevVisibility);
     };
+
+    const [formData, setFormData] = useState({
+        email: '',
+        password: '',
+        confirmpassword: '',
+        loginemail: '',
+        loginpassword: ''
+    })
+    
+    const { email, password, confirmpassword, loginemail, loginpassword } = formData
+    
+    const navigate = useNavigate()
+    const dispatch = useDispatch()
+    
+    const { user, isLoading, isError, isSuccess, message } = useSelector(
+        (state) => state.auth
+    )
+
+    useEffect(() => {
+        if (isError) {
+          alert(message)
+        }
+    
+        if (isSuccess || user) {
+          navigate('/')
+        }
+    
+        dispatch(reset())
+    }, [user, isError, isSuccess, message, navigate, dispatch])
+
+    const onChange = (e) => {
+        setFormData((prevState) => ({
+          ...prevState,
+          [e.target.name]: e.target.value,
+        }))
+    }
+
+    const loginSubmit = (e) => {
+        e.preventDefault()
+
+        const userData = {
+            loginemail,
+            loginpassword,
+        }
+        
+        dispatch(login(userData))
+    }
+
+    const registerSubmit = (e) => {
+        e.preventDefault()
+    
+        if (password !== confirmpassword) {
+          alert('Passwords do not match')
+        } else {
+          const userData = {
+            email,
+            password,
+          }
+    
+          dispatch(register(userData))
+        }
+    }
 
     return(
 
@@ -69,7 +134,14 @@ const Login = () => {
                                         <label id="email" class="text-sm font-medium leading-none text-gray-800">
                                             Email
                                         </label>
-                                        <input aria-labelledby="email" type="email" class="bg-gray-200 border outline-none rounded  text-xs font-medium leading-none text-gray-800 py-3 w-full pl-3 mt-2"/>
+                                        <input 
+                                            aria-labelledby="email" 
+                                            type="email" 
+                                            id='loginemail'
+                                            name='loginemail'
+                                            value={loginemail}
+                                            onChange={onChange}
+                                            class="bg-gray-200 border outline-none rounded  text-xs font-medium leading-none text-gray-800 py-3 w-full pl-3 mt-2"/>
                                     </div>
 
                                     <div class="mt-6  w-full">
@@ -80,7 +152,13 @@ const Login = () => {
 
                                         <div class="relative flex items-center justify-center bg-gray-200 rounded px-[10px]">
 
-                                            <input id="pass" type={passwordType} class="bg-gray-200 border outline-none rounded  text-xs font-medium leading-none text-gray-800 py-3 w-full pl-3 mt-2"/>
+                                            <input 
+                                                id='loginpassword'
+                                                name='loginpassword'
+                                                value={loginpassword} 
+                                                onChange={onChange}
+                                                type={passwordType} 
+                                                class="bg-gray-200 border outline-none rounded  text-xs font-medium leading-none text-gray-800 py-3 w-full pl-3 mt-2"/>
                                             
                                             <button 
                                                 className='text-[#4d4d4d]'
@@ -94,7 +172,13 @@ const Login = () => {
                                     </div>
 
                                     <div class="mt-8">
-                                        <button role="button" class="text-sm font-semibold leading-none text-white focus:outline-none bg-black rounded-[25px] uppercase py-4 w-full">Login</button>
+                                        <button 
+                                            role="button" 
+                                            type='Submit'
+                                            onClick={loginSubmit}
+                                            class="text-sm font-semibold leading-none text-white focus:outline-none bg-black rounded-[25px] uppercase py-4 w-full">
+                                                Login
+                                        </button>
                                     </div>
 
                                 </div>
@@ -138,7 +222,14 @@ const Login = () => {
                                             Email
                                         </label>
 
-                                        <input aria-labelledby="email" type="email" class="bg-gray-200 border outline-none rounded  text-xs font-medium leading-none text-gray-800 py-3 w-full pl-3 mt-2"/>
+                                        <input 
+                                            aria-labelledby="email" 
+                                            type="email" 
+                                            id='email'
+                                            name='email'
+                                            value={email}
+                                            onChange={onChange}
+                                            class="bg-gray-200 border outline-none rounded  text-xs font-medium leading-none text-gray-800 py-3 w-full pl-3 mt-2"/>
                                     
                                     </div>
 
@@ -150,7 +241,13 @@ const Login = () => {
 
                                         <div class="relative flex items-center justify-center bg-gray-200 rounded px-[10px]">
 
-                                            <input id="pass" type={passwordType} class="bg-gray-200 border outline-none rounded  text-xs font-medium leading-none text-gray-800 py-3 w-full pl-3 mt-2"/>
+                                            <input 
+                                                id='password'
+                                                name='password'
+                                                value={password}
+                                                type={passwordType} 
+                                                onChange={onChange}
+                                                class="bg-gray-200 border outline-none rounded  text-xs font-medium leading-none text-gray-800 py-3 w-full pl-3 mt-2"/>
 
                                             <button 
                                                 className='text-[#4d4d4d]'
@@ -170,7 +267,13 @@ const Login = () => {
 
                                         <div class="relative flex items-center justify-center bg-gray-200 rounded px-[10px]">
 
-                                            <input id="pass" type={passwordType} class="bg-gray-200 border outline-none rounded  text-xs font-medium leading-none text-gray-800 py-3 w-full pl-3 mt-2"/>
+                                            <input 
+                                                id='confirmpassword'
+                                                name='confirmpassword'
+                                                value={confirmpassword} 
+                                                type={passwordType} 
+                                                onChange={onChange}
+                                                class="bg-gray-200 border outline-none rounded  text-xs font-medium leading-none text-gray-800 py-3 w-full pl-3 mt-2"/>
 
                                             <button 
                                                 className='text-[#4d4d4d]'
@@ -182,7 +285,13 @@ const Login = () => {
                                     </div>
 
                                     <div class="mt-8">
-                                        <button role="button" class="text-sm font-semibold leading-none text-white focus:outline-none bg-black rounded-[25px] uppercase py-4 w-full">Register</button>
+                                        <button 
+                                            role="button" 
+                                            type='Submit'
+                                            onClick={registerSubmit}
+                                            class="text-sm font-semibold leading-none text-white focus:outline-none bg-black rounded-[25px] uppercase py-4 w-full">
+                                                Register
+                                        </button>
                                     </div>
 
                                 </div>

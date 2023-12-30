@@ -9,22 +9,27 @@ import Shop from "./Pages/Shop/Shop";
 import ProductDetails from "./Pages/Product Details/Product_Details";
 import Cart from "./Pages/Cart/Cart";
 import Login from "./Pages/Login/Login";
+import Order from "./Pages/Order/Order";
+import { Toaster } from 'react-hot-toast';
 
 function App() {
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<HomePage />} />
-        <Route path="/contact-us" element={<ContactUs />} />
-        <Route path="/services" element={<OurServices />} />
-        <Route path="/about-us" element={<AboutUs />} />
-        <Route path="/shop" element={<Shop />} />
-        <Route path="/product/:id" element={<ProductDetails />} />
-        <Route path="/cart" element={<Cart />} />
-        <Route path="/login" element={<Login />} />
-      </Routes>
-    </BrowserRouter>
-    
+    <>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<HomePage />} />
+          <Route path="/contact-us" element={<ContactUs />} />
+          <Route path="/services" element={<OurServices />} />
+          <Route path="/about-us" element={<AboutUs />} />
+          <Route path="/shop" element={<Shop />} />
+          <Route path="/product/:id" element={<ProductDetails />} />
+          <Route path="/cart" element={<Cart />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/order" element={<Order />} />
+        </Routes>
+      </BrowserRouter>
+      <Toaster />
+    </>
   );
 }
 

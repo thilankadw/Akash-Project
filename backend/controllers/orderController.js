@@ -4,16 +4,51 @@ module.exports.CreateOrder = async (req,res) => {
 
     try {
 
-        const { items, totalAmount } = req.body;
+        const { items, totalAmount } = req.body.data;
 
         const userId = req.params.id;
+        console.log(req.body)
 
         if(!(items && totalAmount)){
             console.log("Required information are missing");
             return res.json({ message: "Required information are missing.", success: false })
         }
 
-        const order = await Order.create({ userId, items, totalAmount });
+        // program to generate random strings
+
+        // declare all characters
+        const characters ='ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+
+        function generateString(length) {
+            let result = ' ';
+            const charactersLength = characters.length;
+            for ( let i = 0; i < length; i++ ) {
+                result += characters.charAt(Math.floor(Math.random() * charactersLength));
+            }
+
+            return result;
+        }
+
+        let orderId;
+        let idExists = false;
+
+        do {
+            orderId = generateString(7);
+
+            console.log('orderId', orderId);
+
+            let checkId = await Order.find({orderId});
+            console.log('checkId',checkId)
+
+            if(checkId.length> 0){
+                idExists = true;
+            }else{
+                idExists = false;
+            }
+            
+        } while (idExists);
+
+        const order = await Order.create({ userId, items, totalAmount, orderId });
 
         if (!order) {
             console.log("Order not success.");
@@ -24,7 +59,7 @@ module.exports.CreateOrder = async (req,res) => {
             console.log("Order placed successfully.");
             res
             .status(201)
-            .json({ message: "Order placed successfully.", success: true});
+            .json({ message: "Order placed successfully.", orderId: orderId, success: true});
         }
         
     } catch (error) {

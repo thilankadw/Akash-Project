@@ -4,16 +4,29 @@ module.exports.AddToCart = async (req,res) => {
 
     try {
 
-        const { productId, quantity } = req.body;
+        const { id, productName, productPrice, productQuantity, cartImage } = req.body
 
-        const userId = req.params.id;
+        const userId = req.params.id
 
-        if(!(productId || userId || quantity)){
+        const productId = req.body.id
+        const quantity = req.body.productQuantity
+
+        console.log(userId)
+
+
+        if(!(productId || userId || quantity || productName || productPrice)){
             console.log("Required information are missing");
             return res.json({ message: "Required information are missing.", success: false })
         }
 
-        const cart = await Cart.create({ userId, productId, quantity });
+        const isExist = await Cart.findOne({userId, productId})
+
+        if(isExist){
+            console.log("Already in the cart.");
+            return res.status(400).json({ message: "Product is already added to the cart.", success: false });
+        }
+
+        const cart = await Cart.create({ userId, productId, productName, productPrice, quantity, cartImage });
 
         if (!cart) {
             console.log("Couldn't add to cart");
@@ -41,7 +54,7 @@ module.exports.ViewCart = async (req,res) => {
 
         const userId = req.params.id;
 
-        const cart = await Cart.findOne({ userId }).lean();
+        const cart = await Cart.find({ userId }).lean();
 
         if(!cart){
             console.log("Empty cart.");
@@ -72,12 +85,15 @@ module.exports.DeleteCartItem = async (req,res) => {
 
         const userId = req.params.id;
 
+        console.log('product',productId)
+        console.log('user',userId)
+
         if(!(productId || userId)){
             console.log("Missing data.");
             return res.status(400).json({ message: "Required fields are missing.", success: false });
         }
 
-        const deleteCart = Cart.findOneAndDelete({userId, productId});
+        const deleteCart = await Cart.findOneAndDelete({userId, productId});
 
         if(!deleteCart){
             console.log("Couldn't delete item from cart");

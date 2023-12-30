@@ -8,19 +8,35 @@ import Image4 from '../../Assets/Product Details/16 1.png';
 import Image5 from '../../Assets/Product Details/17 1.png';
 import Image6 from '../../Assets/Product Details/image 40.png';
 import Image7 from '../../Assets/Product Details/image 41.png';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import AddIcon from '@mui/icons-material/Add';
 import RemoveIcon from '@mui/icons-material/Remove';
 import Product from '../../Components/Product/Product';
 import Image from '../../Assets/Shop/04 1.png';
+import { addToCart } from '../../features/cart/cartSlice'
+import { allProducts, productdetails, reset } from '../../features/product/productSlice'
+import { useDispatch, useSelector } from 'react-redux';
+import { useParams } from 'react-router-dom';
+
 const ProductDetails = () => {
 
+    const { id } = useParams() //current product id from url
+    const dispatch = useDispatch()
     const [currentImage, setCurrentImage] = useState(0);
     const [productQuantity, setProductQuantity] = useState(1);
 
-    const productImages = [ Image2, Image1, Image3, Image4, Image5];
+    const { products } = useSelector((state) => state.product)
+    const { isError, isSuccess, message, cart } = useSelector((state) => state.cart)
+    
+
+    const foundProduct = products.find(product => product._id === id); //filter current product details
+    
+    const productImages = foundProduct.productImageLinks;
+    const cartImage = productImages[0];
+    const productName = foundProduct.productName;
+    const productPrice = foundProduct.productPrice;
 
     const handlePrev = () => {
         setCurrentImage((prevImage) => (prevImage === 0 ? productImages.length - 1 : prevImage - 1));
@@ -36,14 +52,14 @@ const ProductDetails = () => {
         }
     };
     const quantityIncrement = () => {
-        setProductQuantity(productQuantity+1);
-        // if(productQuantity < product.productAvailableQuantity){
-        //     setProductQuantity(productQuantity+1);
-        // }else{
-        //     setProductQuantity(productQuantity);
-        // }
-        
+        if(productQuantity < 20){
+            setProductQuantity(productQuantity+1);
+        }else{
+            setProductQuantity(productQuantity);
+        }     
     }
+
+    const cartProductDetails = { id, productName, productPrice, productQuantity, cartImage }
 
     return(
 
@@ -91,12 +107,11 @@ const ProductDetails = () => {
 
                             <div className='flex flex-col gap-[30px]'>
 
-                                <div className={`${styles.body_40_semibols}`}>Bisou Accent Chair</div>
-                                <div className={`${styles.body_40_semibols}`}>$ 79.00</div>
-                                <div className={`${styles.paragraph_20} w-[525px] text-[#4D4D4D]`}>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Eu mi bibendum neque egestas
-                                </div>
+                                <div className={`${styles.body_40_semibols}`}>{foundProduct.productName}</div>
+                                <div className={`${styles.body_40_semibols}`}>$ {foundProduct.productPrice}.00</div>
+                                <div className={`${styles.paragraph_20} w-[525px] text-[#4D4D4D]`}>{foundProduct.productDetails}</div>
                                 <div className={`${styles.body_30_regular} flex items-center gap-[30px]`}> 
-                                    Color:  <div className='w-[100px] h-[50px] rounded-[30px]' style={{backgroundColor: 'red'}}></div>
+                                    Color:  <div className='w-[100px] h-[50px] rounded-[30px]' style={{backgroundColor: `${foundProduct.productColor}`}}></div>
                                 </div>
 
                                 <div className='flex items-center h-[60px] gap-[20px]'>
@@ -122,7 +137,12 @@ const ProductDetails = () => {
                                     </div>
 
                                     <div>
-                                        <button className={`${styles.body_14_extrabold} bg-black py-[17px] px-[89px] text-[#fff] rounded-[30px]`}>Add To Cart</button>
+                                        <button 
+                                            onClick={() => {dispatch(addToCart(cartProductDetails))}}
+                                            className={`${styles.body_14_extrabold} bg-black py-[17px] px-[89px] text-[#fff] rounded-[30px]`}
+                                        >
+                                            Add To Cart
+                                        </button>
                                     </div>
 
                                 </div>

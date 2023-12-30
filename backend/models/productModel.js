@@ -17,7 +17,7 @@ const productSchema = new mongoose.Schema({
         type: String,
     },
     productImageLinks: {
-        type: String,
+        type: Array,
     },
     productDescription: {
         type: String,

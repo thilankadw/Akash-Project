@@ -8,7 +8,7 @@ const Product = (props) => {
         <>
             <div>
                 <div className='mb-[60px]'>
-                    <Link to='/product/1'>
+                    <Link to={`/product/${props.ProductId}`}>
                         <div className='w-[410px] overflow-hidden'>
                             <img src={props.ImageLink} className='rounded-[10px] w-[500px]'/>
                         </div>
@@ -20,7 +20,6 @@ const Product = (props) => {
         </>
 
     );
-
 };
 
 export default Product;

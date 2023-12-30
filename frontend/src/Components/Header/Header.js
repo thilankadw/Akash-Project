@@ -3,10 +3,18 @@ import { Link } from 'react-router-dom';
 import Logo from '../../Assets/Logo/logoblack.png';
 import styles from '../../Styles/styles';
 import MenuIcon from '@mui/icons-material/Menu';
+import { useDispatch, useSelector } from 'react-redux';
+import { logout } from '../../features/auth/authSlice';
 
 const Header = () => {
 
     const [open, setopen] = useState(false);
+
+    const { user, isLoading, isError, isSuccess, message } = useSelector(
+        (state) => state.auth
+    )
+
+    const dispatch = useDispatch()
 
     return (
         <>
@@ -37,14 +45,27 @@ const Header = () => {
                         <div className='w-max'>
                             <Link to='/contact-us' className={`${styles.body_14_regular} text-[#000]`}>Contact</Link>
                         </div>
-                        <div className='w-max'>
-                            <Link to='/login' className={`${styles.body_14_regular} text-[#000]`}>Login</Link>
-                        </div>
-                        <div className='w-max'>
-                            <Link to='/cart' className={`${styles.body_14_extrabold} py-[11px] px-[30px] rounded-[20px] bg-[#EFF422]`}>
-                                {true ? `Cart(0)` : `Cart(0)`}
-                            </Link> 
-                        </div>
+                        {(!user) && (
+                            <div className='w-max'>
+                                <Link to='/login' className={`${styles.body_14_regular} text-[#000]`}>Login</Link>
+                            </div>
+                        )}
+                        {(user) && (
+                            <div className='w-max'>
+                                <button 
+                                    onClick={() =>  {dispatch(logout())}}
+                                    className={`${styles.body_14_regular} text-[#000]`}>
+                                    Log Out
+                                </button>
+                            </div>
+                        )}
+                        {(user) && (
+                            <div className='w-max'>
+                                <Link to='/cart' className={`${styles.body_14_extrabold} py-[11px] px-[30px] rounded-[20px] bg-[#EFF422]`}>
+                                    {true ? `Cart(0)` : `Cart(0)`}
+                                </Link> 
+                            </div>
+                        )}
                     </div>
 
                 </div>            

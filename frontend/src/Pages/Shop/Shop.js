@@ -4,11 +4,13 @@ import Header from '../../Components/Header/Header';
 import HeaderBackgroundImage from '../../Assets/Shop/Frame 95.png'
 import Product from '../../Components/Product/Product';
 import Image from '../../Assets/Shop/04 1.png';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { allProducts, productdetails, reset } from '../../features/product/productSlice'
 
 const Shop = () => {
 
-    const [allProducts, setallProducts] = useState(true);
+    const [allproducts, setallproducts] = useState(true);
     const [livingroom, setlivingroom] = useState(false);
     const [diningandkitchen, setdiningandkitchen] = useState(false);
     const [bedroom, setbedroom] = useState(false);
@@ -16,13 +18,27 @@ const Shop = () => {
 
     const resetFilter = () => {
 
-        setallProducts(false);
+        setallproducts(false);
         setlivingroom(false);
         setdiningandkitchen(false);
         setbedroom(false);
         setoutdoor(false);
 
     }
+
+    const dispatch = useDispatch()
+
+    const { isLoading, isError, isSuccess, message, products, productDetails } = useSelector(
+        (state) => state.product
+    )
+
+    useEffect(() => {
+        if (isError) {
+            alert(message)
+        }
+
+        dispatch(allProducts())
+    }, [isError, isSuccess,]);
 
     return(
 
@@ -41,8 +57,8 @@ const Shop = () => {
                         <div className='flex gap-[20px]'>
                             <button 
                                 className={`${styles.body_14_regular} py-[10px] px-[20px] rounded-[27px]`} 
-                                style={{color: allProducts? '#fff' : '#000', backgroundColor: allProducts ? '#000' : '#fff'}}
-                                onClick={() => {resetFilter(); setallProducts(true)}}
+                                style={{color: allproducts? '#fff' : '#000', backgroundColor: allproducts ? '#000' : '#fff'}}
+                                onClick={() => {resetFilter(); setallproducts(true)}}
                             >
                                 All Products
                             </button>                                       
@@ -81,21 +97,11 @@ const Shop = () => {
 
                         <div className='flex justify-center flex-wrap gap-[25px]'>
 
-                            <Product ImageLink={Image} ProductName='Vegan Leather Chair' ProductPrice='79.00'/>
-                            <Product ImageLink={Image} ProductName='Vegan Leather Chair' ProductPrice='79.00'/>
-                            <Product ImageLink={Image} ProductName='Vegan Leather Chair' ProductPrice='79.00'/>
-                            <Product ImageLink={Image} ProductName='Vegan Leather Chair' ProductPrice='79.00'/>
-                            <Product ImageLink={Image} ProductName='Vegan Leather Chair' ProductPrice='79.00'/>
-                            <Product ImageLink={Image} ProductName='Vegan Leather Chair' ProductPrice='79.00'/>
-                            <Product ImageLink={Image} ProductName='Vegan Leather Chair' ProductPrice='79.00'/>
-                            <Product ImageLink={Image} ProductName='Vegan Leather Chair' ProductPrice='79.00'/>
-                            <Product ImageLink={Image} ProductName='Vegan Leather Chair' ProductPrice='79.00'/>
-                            <Product ImageLink={Image} ProductName='Vegan Leather Chair' ProductPrice='79.00'/>
-                            <Product ImageLink={Image} ProductName='Vegan Leather Chair' ProductPrice='79.00'/>
-                            <Product ImageLink={Image} ProductName='Vegan Leather Chair' ProductPrice='79.00'/>
-                            <Product ImageLink={Image} ProductName='Vegan Leather Chair' ProductPrice='79.00'/>
-                            <Product ImageLink={Image} ProductName='Vegan Leather Chair' ProductPrice='79.00'/>
-                            <Product ImageLink={Image} ProductName='Vegan Leather Chair' ProductPrice='79.00'/>
+                            {products.map((product) => (
+
+                                <Product ProductId={product._id} ImageLink={product.productImageLinks[0]} ProductName={product.productName} ProductPrice={product.productPrice}/>
+
+                            ))}
 
                         </div>
 

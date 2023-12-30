@@ -43,19 +43,20 @@ module.exports.Login = async (req, res) => {
 
   try {
 
-    const { email, password } = req.body;
+    const { loginemail, loginpassword } = req.body;
 
-    if(!email || !password ){
+    if(!loginemail || !loginpassword ){
       return res.status(400).json({message:'All fields are required', success: false})
     }
 
+    const email = req.body.loginemail;
     const user = await User.findOne({ email });
 
     if(!user){
       return res.status(400).json({message:'User Not Found!!!', success: false })  
     }
 
-    const auth = await bcrypt.compare(req.body.password, user.password)
+    const auth = await bcrypt.compare(req.body.loginpassword, user.password)
 
     if (!auth) {
       return res.status(400).json({message:'Error in auth', success: false }) 
