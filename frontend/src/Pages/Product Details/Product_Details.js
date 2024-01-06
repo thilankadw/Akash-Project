@@ -1,14 +1,9 @@
 import styles from '../../Styles/styles';
 import Footer from '../../Components/Footer/Footer';
 import Header from '../../Components/Header/Header';
-import Image1 from '../../Assets/Product Details/03 1 (1).png';
-import Image2 from '../../Assets/Product Details/03 1.png';
-import Image3 from '../../Assets/Product Details/15 1.png';
-import Image4 from '../../Assets/Product Details/16 1.png';
-import Image5 from '../../Assets/Product Details/17 1.png';
 import Image6 from '../../Assets/Product Details/image 40.png';
 import Image7 from '../../Assets/Product Details/image 41.png';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import AddIcon from '@mui/icons-material/Add';
@@ -16,36 +11,33 @@ import RemoveIcon from '@mui/icons-material/Remove';
 import Product from '../../Components/Product/Product';
 import Image from '../../Assets/Shop/04 1.png';
 import { addToCart } from '../../features/cart/cartSlice'
-import { allProducts, productdetails, reset } from '../../features/product/productSlice'
 import { useDispatch, useSelector } from 'react-redux';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 
 const ProductDetails = () => {
 
+    const { user } = useSelector((state) => state.auth) //get user id 
+    const { products } = useSelector((state) => state.product) //get all products
+
     const { id } = useParams() //current product id from url
     const dispatch = useDispatch()
+    const navigate = useNavigate()
     const [currentImage, setCurrentImage] = useState(0);
     const [productQuantity, setProductQuantity] = useState(1);
 
-    const { products } = useSelector((state) => state.product)
-    const { isError, isSuccess, message, cart } = useSelector((state) => state.cart)
-    
-
-    const foundProduct = products.find(product => product._id === id); //filter current product details
+    const foundProduct = products.find(product => product._id === id); //filter current product details from all products
     
     const productImages = foundProduct.productImageLinks;
-    const cartImage = productImages[0];
-    const productName = foundProduct.productName;
-    const productPrice = foundProduct.productPrice;
-
+    
+    //function to handle image carousel
     const handlePrev = () => {
         setCurrentImage((prevImage) => (prevImage === 0 ? productImages.length - 1 : prevImage - 1));
-    };
-    
+    };   
     const handleNext = () => {
         setCurrentImage((prevImage) => (prevImage === productImages.length - 1 ? 0 : prevImage + 1));
     };
 
+    //select quantity
     const quantityDecrement = () => {
         if(!(productQuantity <= 1)){
             setProductQuantity(productQuantity-1);
@@ -59,6 +51,11 @@ const ProductDetails = () => {
         }     
     }
 
+    //prepare cart details to send server
+    const cartImage = productImages[0];
+    const productName = foundProduct.productName;
+    const productPrice = foundProduct.productPrice;
+    
     const cartProductDetails = { id, productName, productPrice, productQuantity, cartImage }
 
     return(
@@ -138,7 +135,13 @@ const ProductDetails = () => {
 
                                     <div>
                                         <button 
-                                            onClick={() => {dispatch(addToCart(cartProductDetails))}}
+                                            onClick={() => {
+                                                if(!user){
+                                                    navigate('/login')
+                                                }else{
+                                                    dispatch(addToCart(cartProductDetails))}
+                                                }
+                                            }
                                             className={`${styles.body_14_extrabold} bg-black py-[17px] px-[89px] text-[#fff] rounded-[30px]`}
                                         >
                                             Add To Cart

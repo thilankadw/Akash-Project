@@ -41,21 +41,18 @@ export const orderSlice = createSlice({
       builder
         .addCase(createOrder.pending, (state) => {
           state.isLoading = true
-          toast.loading('Please wait...')
         })
         .addCase(createOrder.fulfilled, (state, action) => {
           state.isLoading = false
           state.isSuccess = true
           state.message = action.payload.message
           state.orderId = action.payload.orderId
-          toast.dismiss()
           toast.success(action.payload.message)
         })
         .addCase(createOrder.rejected, (state, action) => {
           state.isLoading = false
           state.isError = true
           state.message = action.payload
-          toast.dismiss()
           toast.error(action.payload);
         })
     },

@@ -52,38 +52,32 @@ export const productSlice = createSlice({
     builder
       .addCase(allProducts.pending, (state) => {
         state.isLoading = true
-        toast.loading('Please wait...')
       })
       .addCase(allProducts.fulfilled, (state, action) => {
         state.isLoading = false
         state.isSuccess = true
         state.message = action.payload.message
         state.products = action.payload.productDetails
-        toast.dismiss()
       })
       .addCase(allProducts.rejected, (state, action) => {
         state.isLoading = false
         state.isError = true
         state.message = action.payload
-        toast.dismiss()
         toast.error(action.payload)
       })
       .addCase(productdetails.pending, (state) => {
         state.isLoading = true
-        toast.loading('Please wait...')
       })
       .addCase(productdetails.fulfilled, (state, action) => {
         state.isLoading = false
         state.isSuccess = true
         state.message = action.payload.message
         state.productDetails = action.payload.productDetails
-        toast.dismiss()
       })
       .addCase(productdetails.rejected, (state, action) => {
         state.isLoading = false
         state.isError = true
         state.message = action.payload
-        toast.dismiss()
         toast.error(action.payload)
       })
   },

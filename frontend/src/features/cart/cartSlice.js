@@ -64,55 +64,46 @@ export const cartSlice = createSlice({
     builder
       .addCase(addToCart.pending, (state) => {
         state.isLoading = true
-        toast.loading('Please wait...')
       })
       .addCase(addToCart.fulfilled, (state, action) => {
         state.isLoading = false
         state.isSuccess = true
         state.message = action.payload.message
-        toast.dismiss()
         toast.success(action.payload.message)
       })
       .addCase(addToCart.rejected, (state, action) => {
         state.isLoading = false
         state.isError = true
         state.message = action.payload
-        toast.dismiss()
         toast.error(action.payload);
       })
       .addCase(viewCart.pending, (state) => {
         state.isLoading = true
-        toast.loading('Please wait...')
       })
       .addCase(viewCart.fulfilled, (state, action) => {
         state.isLoading = false;
         state.isSuccess = true;
         state.message = action.payload.message;
         state.cart = action.payload.cartProducts;
-        toast.dismiss();
       })
       .addCase(viewCart.rejected, (state, action) => {
         state.isLoading = false;
         state.isError = true;
         state.message = action.payload;
-        toast.dismiss();
       })
       .addCase(deleteFromCart.pending, (state) => {
         state.isLoading = true
-        toast.loading('Please wait...')
       })
       .addCase(deleteFromCart.fulfilled, (state, action) => {
         state.isLoading = false
         state.isSuccess = true
         state.cart = state.cart.filter(item => item.productId !== action.payload.productId);
-        toast.dismiss()
         toast.success(action.payload.message)
       })
       .addCase(deleteFromCart.rejected, (state, action) => {
         state.isLoading = false
         state.isError = true
         state.message = action.payload
-        toast.dismiss()
         toast.error(action.payload);
       })
   },

@@ -28,7 +28,7 @@ const Shop = () => {
 
     const dispatch = useDispatch()
 
-    const { isLoading, isError, isSuccess, message, products, productDetails } = useSelector(
+    const { isLoading, isError, isSuccess, message, products } = useSelector(
         (state) => state.product
     )
 

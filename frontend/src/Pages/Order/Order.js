@@ -11,9 +11,19 @@ const Order = () => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
 
-    const { isLoading, isError, isSuccess, message, orderId } = useSelector(
+    const { orderId } = useSelector(
         (state) => state.order
     )
+
+    const { user } = useSelector(
+        (state) => state.auth
+    )
+
+    useEffect(() => {
+        if(!user){
+            navigate('/login')
+        }
+    },[user])
 
     return(
 

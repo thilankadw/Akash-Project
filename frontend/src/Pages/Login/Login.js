@@ -6,6 +6,7 @@ import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { register, login, reset } from '../../features/auth/authSlice';
+import toast from 'react-hot-toast';
 
 const Login = () => {
 
@@ -48,6 +49,8 @@ const Login = () => {
         dispatch(reset())
     }, [user, isError, isSuccess, message, navigate, dispatch])
 
+    
+
     const onChange = (e) => {
         setFormData((prevState) => ({
           ...prevState,
@@ -55,29 +58,61 @@ const Login = () => {
         }))
     }
 
+    function isValidEmail(email) {
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        return emailRegex.test(email);
+    }
+
     const loginSubmit = (e) => {
         e.preventDefault()
 
-        const userData = {
-            loginemail,
-            loginpassword,
+        if(!loginemail){
+            toast.dismiss()
+            toast.error('Email is required.')
+        }else if (!isValidEmail(loginemail)) {
+            toast.dismiss();
+            toast.error('Invalid email.');
+        }else if(!loginpassword){
+            toast.dismiss()
+            toast.error('Password is required.')
+        }else {
+            const userData = {
+                loginemail,
+                loginpassword,
+            }
+            
+            dispatch(login(userData))
         }
-        
-        dispatch(login(userData))
     }
 
     const registerSubmit = (e) => {
         e.preventDefault()
     
-        if (password !== confirmpassword) {
-          alert('Passwords do not match')
+        if (!email) {
+            toast.dismiss();
+            toast.error('Email is required.');
+        } else if (!isValidEmail(email)) {
+            toast.dismiss();
+            toast.error('Invalid email.');
+        } else if (!password) {
+            toast.dismiss();
+            toast.error('Password is required.');
+        } else if (password.length < 8) {
+            toast.dismiss();
+            toast.error('Password should contain 8 characters.');
+        }else if (!confirmpassword) {
+            toast.dismiss();
+            toast.error('Password is required.');
+        } else if (password !== confirmpassword) {
+            toast.dismiss();
+            toast.error('Passwords do not match.');
         } else {
-          const userData = {
-            email,
-            password,
-          }
-    
-          dispatch(register(userData))
+            const userData = {
+                email,
+                password,
+            };
+        
+            dispatch(register(userData));
         }
     }
 

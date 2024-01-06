@@ -61,13 +61,11 @@ export const authSlice = createSlice({
     builder
       .addCase(register.pending, (state) => {
         state.isLoading = true
-        toast.loading('Please wait...')
       })
       .addCase(register.fulfilled, (state, action) => {
         state.isLoading = false
         state.isSuccess = true
         state.user = action.payload.userId
-        toast.dismiss()
         toast.success('You registered successfully!...')
       })
       .addCase(register.rejected, (state, action) => {
@@ -75,18 +73,15 @@ export const authSlice = createSlice({
         state.isError = true
         state.message = action.payload
         state.user = null
-        toast.dismiss()
         toast.error('Registration was unsuccessful!...')
       })
       .addCase(login.pending, (state) => {
         state.isLoading = true
-        toast.loading('Please wait...')
       })
       .addCase(login.fulfilled, (state, action) => {
         state.isLoading = false
         state.isSuccess = true
         state.user = action.payload.userId
-        toast.dismiss()
         toast.success('Login success!...')
       })
       .addCase(login.rejected, (state, action) => {
@@ -94,12 +89,10 @@ export const authSlice = createSlice({
         state.isError = true
         state.message = action.payload
         state.user = null
-        toast.dismiss()
         toast.error('Login was unsuccessful!...')
       })
       .addCase(logout.fulfilled, (state) => {
         state.user = null
-        toast.dismiss()
         toast.success('Logged out!...')
       })
   },

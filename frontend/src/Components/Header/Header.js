@@ -1,10 +1,12 @@
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import Logo from '../../Assets/Logo/logoblack.png';
 import styles from '../../Styles/styles';
 import MenuIcon from '@mui/icons-material/Menu';
 import { useDispatch, useSelector } from 'react-redux';
 import { logout } from '../../features/auth/authSlice';
+import { reset } from '../../features/order/orderSlice';
+import { addToCart, viewCart, deleteFromCart } from '../../features/cart/cartSlice'
 
 const Header = () => {
 
@@ -14,7 +16,17 @@ const Header = () => {
         (state) => state.auth
     )
 
+    const { cart } = useSelector(
+        (state) => state.cart
+    )
+
     const dispatch = useDispatch()
+    const navigate = useNavigate()
+
+    useEffect(() => {
+
+        dispatch(viewCart())
+    }, [deleteFromCart, addToCart, dispatch]);
 
     return (
         <>
@@ -53,7 +65,7 @@ const Header = () => {
                         {(user) && (
                             <div className='w-max'>
                                 <button 
-                                    onClick={() =>  {dispatch(logout())}}
+                                    onClick={() =>  {dispatch(reset()); dispatch(logout()); navigate('/')}}
                                     className={`${styles.body_14_regular} text-[#000]`}>
                                     Log Out
                                 </button>
@@ -62,7 +74,7 @@ const Header = () => {
                         {(user) && (
                             <div className='w-max'>
                                 <Link to='/cart' className={`${styles.body_14_extrabold} py-[11px] px-[30px] rounded-[20px] bg-[#EFF422]`}>
-                                    {true ? `Cart(0)` : `Cart(0)`}
+                                    {cart ? `Cart(${cart.length})` : `Cart(0)`}
                                 </Link> 
                             </div>
                         )}

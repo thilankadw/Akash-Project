@@ -21,6 +21,10 @@ const Cart = () => {
         (state) => state.order
     )
 
+    const { user } = useSelector(
+        (state) => state.auth
+    )
+
     //fees calculation
     let subTotal = 0 ;
     const calculateSubTotal = () => {
@@ -52,6 +56,9 @@ const Cart = () => {
     const ordertDetails = { items, totalAmount };
 
     useEffect(() => {
+        if(!user){
+            navigate('/login')
+        }
         if(isSuccess || orderId){
             navigate('/order')
         }
