@@ -19,11 +19,70 @@ const HeroSection = () => {
         <>
             <div className='flex justify-center'>
             <div className="container flex flex-col justify-center absolute top-0 z-0">
+                <div className="">
+                    <img src={MainImage} className=""/>
+                    <div className=""></div>
+                    <div className="">Your style reflection</div>
+                    <div className=''>Furniture that fits and hits home</div>
+                    <Link to='/' className={`${styles.btn_typo_1} `}>View Collection<ArrowForwardIcon/></Link>
+                </div>
+                <div className="">
+                    <div
+                        x-data="{}"
+                        x-init="$nextTick(() => {
+                            let ul = $refs.texts;
+                            ul.insertAdjacentHTML('afterend', ul.outerHTML);
+                            ul.nextSibling.setAttribute('aria-hidden', 'true');
+                        })"
+                        class="w-full inline-flex  flex-nowrap overflow-hidden [mask-image:_linear-gradient(to_right,transparent_0,_black_128px,_black_calc(100%-128px),transparent_100%)]"
+                    >
+                        <ul x-ref="texts" class="">
+                            <li className=''>
+                                Furniture                                
+                            </li>
+                            <li className=''>
+                                Interior
+                            </li>
+                            <li className=''>
+                                Design
+                            </li>
+                        </ul>           
+                    </div>
+                    <div className=''>
+                        <div >
+                            <img src={HeroImage2} className='rounded-[10px]'/>
+                        </div>
+                        <div>
+                            <div className=''>
+                                <img src={HeroImage3} className='rounded-[10px]'/>
+                                <img src={HeroImage4} className='rounded-[10px]'/>
+                            </div>
+                            <div className=''>
+                                <div className={`${styles.title_font_1}`}>Choose the change</div>
+                                <div className={`${styles.text_font_1} `}>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. In dictum non consectetur a erat nam at lectus.</div>
+                                <Link to='/' className={`${styles.btn_typo_1} `}>View Collection<ArrowForwardIcon/></Link>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <div>Our Services</div>
+                    <div>Your comfort and aesthetic design suitable for you is before anything else</div>
+                    <div>
+                        <img src={CarouselImage1}/>
+                        <img src={CarouselImage2}/>
+                        <img src={CarouselImage3}/>
+                    </div>
+                </div>
+            </div>
+            </div>
+            {/* <div className='flex justify-center'>
+            <div className="container flex flex-col justify-center absolute top-0 z-0">
                 <div className="container flex justify-center relative">
                     <img src={MainImage} className="container max-w-full"/>
                     <div className="absolute top-0 left-0 w-full h-full bg-[#000000] opacity-40"></div>
-                    <div className="absolute top-[227px] flex justify-center text-[180px] uppercase font-[300] leading-[160px] text-[#fff] text-center">Your style reflection</div>
-                    <div className='absolute top-[578px] flex justify-center text-[34px] capitalize font-[400] leading-normal text-[#fff] text-center'>Furniture that fits and hits home</div>
+                    <div className="absolute top-[227px] flex justify-center text-[60px] md:text-5xl lg:text-[180px] xl:text-3xl 2xl:text-2xl uppercase font-[300] leading-[160px] text-white text-center ">Your style reflection</div>
+                    <div className='absolute top-[578px] flex justify-center text-[34px] capitalize font-[400] leading-normal text-[#fff] text-center sm:'>Furniture that fits and hits home</div>
                     <Link to='/' className={`${styles.btn_typo_1} absolute top-[700px] bg-white bg-opacity-50 backdrop-blur-4 px-[48px] py-[14px] rounded-[25px] w-[250px] flex justify-center gap-[13px]`}>View Collection<ArrowForwardIcon/></Link>
                 </div>
                 <div className="container flex flex-col justify-center relative bg-[#E9EADD] pb-[132px]">
@@ -75,7 +134,7 @@ const HeroSection = () => {
                     </div>
                 </div>
             </div>
-            </div>
+            </div> */}
         </>
 
     );

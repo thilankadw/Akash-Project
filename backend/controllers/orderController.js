@@ -15,8 +15,6 @@ module.exports.CreateOrder = async (req,res) => {
         }
 
         // program to generate random strings
-
-        // declare all characters
         const characters ='ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
 
         function generateString(length) {
@@ -35,8 +33,6 @@ module.exports.CreateOrder = async (req,res) => {
         do {
             orderId = generateString(7);
 
-            console.log('orderId', orderId);
-
             let checkId = await Order.find({orderId});
             console.log('checkId',checkId)
 
@@ -51,12 +47,10 @@ module.exports.CreateOrder = async (req,res) => {
         const order = await Order.create({ userId, items, totalAmount, orderId });
 
         if (!order) {
-            console.log("Order not success.");
             return res.status(400).json({ message: "Order not success.", success: false });
         }
       
         if(order){
-            console.log("Order placed successfully.");
             res
             .status(201)
             .json({ message: "Order placed successfully.", orderId: orderId, success: true});
@@ -83,10 +77,6 @@ module.exports.UpdateOrderStatus = async (req,res) => {
         }
 
         const { newStatus } = req.body; 
-
-        // if (!newStatus) {
-        //     return res.json({ message: "Order update is unsuccessful.", success: false });
-        // }
 
         const updatedOrder = await Order.findByIdAndUpdate(
             orderId,

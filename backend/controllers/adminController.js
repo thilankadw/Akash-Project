@@ -6,8 +6,6 @@ module.exports.AddProduct = async (req,res) => {
     try {
 
         const { productId, productName, productPrice, deliveryAvailable, productDescription } = req.body;
-        
-        const imageFile = req.file;
 
         const existingProduct = await Product.findOne({ productId });
 

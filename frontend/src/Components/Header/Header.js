@@ -12,7 +12,7 @@ const Header = () => {
 
     const [open, setopen] = useState(false);
 
-    const { user, isLoading, isError, isSuccess, message } = useSelector(
+    const { user } = useSelector(
         (state) => state.auth
     )
 
@@ -32,16 +32,16 @@ const Header = () => {
         <>
             <div className={`flex justify-center`} >
 
-                <div className='fixed top-0 left-0 right-0 z-10 py-[20px] px-[80px] flex flex-shrink flex-col md:flex-row items-center justify-center md:gap-[350px] bg-white'>
+                <div className='fixed top-0 left-0 right-0 z-10 py-[20px] px-[80px] flex flex-shrink flex-col xl:flex-row items-center justify-center xl:gap-[350px] bg-white'>
 
-                    <div class="p-4 flex flex-row items-center justify-center gap-[180px]">
+                    <div class="p-4 flex flex-row items-center justify-center gap-[130px] sm:gap-[180px]">
                         <div className='w-[109px] h-[22px]'><Link to='/'><img src={Logo} className='w-[109px] h-[22px]' alt="Logo" /></Link></div>
-                        <button class="md:hidden rounded-lg focus:outline-none focus:shadow-outline" onClick={() => {setopen(!open)}}>
+                        <button class="xl:hidden rounded-lg focus:outline-none focus:shadow-outline" onClick={() => {setopen(!open)}}>
                             <MenuIcon />
                         </button>
                     </div>
 
-                    <div className={` ${open ? 'flex' : 'hidden'} md:flex flex-col md:flex-row items-center justify-center gap-[20px] md:gap-[60px]`}>
+                    <div className={` ${open ? 'flex' : 'hidden'} xl:flex flex-col xl:flex-row items-center justify-center gap-[20px] xl:gap-[60px] max-w-fit`}>
                         <div className='w-max'>
                             <Link to='/' className={`${styles.body_14_regular} text-[#000]`} >Home</Link>
                         </div>

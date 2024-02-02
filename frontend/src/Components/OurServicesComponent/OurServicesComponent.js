@@ -1,6 +1,3 @@
-import styles from "../../Styles/styles";
-
-
 const OurServicesComponent = () => {
 
     return(

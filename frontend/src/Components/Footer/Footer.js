@@ -9,11 +9,11 @@ const Footer = () => {
         <>  
             <div className='flex justify-center'>
 
-                <div className='py-[80px] px-[80px] flex items-center gap-[560px] border-t-[2px]'>
+                <div className='py-[80px] px-[80px] flex flex-col sm:flex-row gap-[80px] items-center sm:gap-[300px] border-t-[2px] w-[300px] sm:w-[1000px]'>
 
                     <div><img src={Logo} className=''/></div>
 
-                    <div className='flex items-start gap-[60px]'>
+                    <div className='flex flex-wrap justify-center items-center gap-[30px] sm:gap-[60px] w-[330px] sm:w-[1000px] px-[10px] sm:px-0'>
                         <div className='flex flex-col gap-[20px]'>
                             <div className={`${styles.body_14_extrabold}`}>Product</div>
                             <Link to='/' className={`${styles.paragraph_16} text-[#5C5C5C] capitalize`}>Living Room</Link>

@@ -19,10 +19,12 @@ const productSchema = new mongoose.Schema({
     productImageLinks: {
         type: Array,
     },
+    productType: {
+        type: String
+    },
     productDescription: {
         type: String,
-    }
-
+    },
 });
 
 module.exports = mongoose.model("Product", productSchema);

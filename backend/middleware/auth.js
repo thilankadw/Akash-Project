@@ -7,7 +7,6 @@ module.exports.isAuthenticated = catchAsyncErrors(async(req,res,next) => {
     const token = req.header('Authorization');
 
     if(!token){
-        console.log("Login Error (Missing token)")
         return next(new ErrorHandler("Please login to continue", 401));
     }
 

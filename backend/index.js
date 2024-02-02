@@ -1,7 +1,6 @@
 require('dotenv').config();
 const express = require('express');
 const app = express();
-const path = require('path');
 const cors = require('cors');
 const corsOptions = require('./config/corsOptions');
 const mongoose = require('mongoose');
@@ -22,7 +21,7 @@ app.use('/api/user', require('./routes/userRoutes'));
 app.use('/api/product', require('./routes/productRoutes'));
 app.use('/api/cart', require('./routes/cartRoutes'));
 app.use('/api/order', require('./routes/orderRoutes'));
-// app.use('/api/inquiry', require('./routes/inquiryRoutes'));
+app.use('/api/contact', require('./routes/contactRoutes'));
 
 mongoose.connection.once('open', () => {
     console.log('connected to mongodb');

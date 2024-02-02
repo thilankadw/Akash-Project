@@ -15,15 +15,15 @@ const OurServices = () => {
     return(
 
         <>
-            <div>
+            <div className='flex flex-col justify-center items-center'>
                 <Header/>
 
-                <div className='flex justify-center mt-[100px]'>
+                <div className='flex justify-center items-center mt-[100px]'>
                     <img src={HeaderImage} className='w-full'></img>
-                    <div className={`${styles.h4_70} absolute top-[230px] text-[#fff]`}>Our Services</div>
+                    <div className={`${styles.h4_70} hidden sm:block absolute top-[230px] text-[#fff]`}>Our Services</div>
                 </div>
 
-                <div className='flex items-center justify-center py-[50px] px-[80px] bg-[#FAFAF4] gap-[54px]'>
+                <div className='flex flex-col w-[330px] sm:w-full sm:flex-row items-center justify-center py-[50px] px-[80px] bg-[#FAFAF4] gap-[54px]'>
                     
                     <div className='w-[279px] flex flex-col gap-[22px]'>
                         <div className='flex items-center gap-[20px]'>
@@ -59,11 +59,11 @@ const OurServices = () => {
 
                 </div>
 
-                <div className='flex flex-col items-center justify-center py-[130px] gap-[130px]'>
+                <div className='flex flex-col w-[330px] sm:w-full px-[20px] items-center justify-center py-[130px] gap-[130px]'>
 
-                    <div className='flex items-center justify-center gap-[129px] '>
-                        <div className='w-[530px] flex flex-col gap-[28px]'>
-                            <div className={`${styles.h6_60} font-[600] capitalize tracking-[-1.8px]`}>Our Philosophy</div>
+                    <div className='flex flex-col sm:flex-row items-center justify-center gap-[129px] '>
+                        <div className='sm:w-[530px] flex flex-col gap-[28px]'>
+                            <div className={`${styles.h6_60} text-[30px] sm:text-[60px] font-[600] capitalize tracking-[-1.8px]`}>Our Philosophy</div>
                             <div className={`${styles.body_20_regular} leading-[34px]`}>Cursus vitae congue mauris rhoncus. Amet est placerat in egestas erat. Pharetra magna ac placerat vestibulum lectus. Felis eget velit aliquet sagittis id consectetur.</div>
                         </div>
                         <div>
@@ -71,19 +71,19 @@ const OurServices = () => {
                         </div>
                     </div>
 
-                    <div className='flex items-center justify-center gap-[129px] '>                        
-                        <div>
-                            <img src={OurServicesImage2}/>
-                        </div>
-                        <div className='w-[530px] flex flex-col gap-[28px]'>
+                    <div className='flex flex-col sm:flex-row items-center justify-center gap-[129px] '>                           
+                        <div className='sm:w-[530px] flex flex-col gap-[28px]'>
                             <div className={`${styles.h6_60} font-[600] capitalize tracking-[-1.8px]`}>Starting Projects</div>
                             <div className={`${styles.body_20_regular} leading-[34px]`}>Cursus eget nunc scelerisque viverra mauris. Sit amet justo donec enim diam vulputate. Laoreet sit amet cursus sit amet dictum sit amet justo. Sed vulputate.</div>
                         </div>
+                        <div>
+                            <img src={OurServicesImage2}/>
+                        </div>
                     </div>
 
-                    <div className='flex items-center justify-center gap-[129px] '>
-                        <div className='w-[530px] flex flex-col gap-[28px]'>
-                            <div className={`${styles.h6_60} font-[600] capitalize w-[517px] tracking-[-1.8px]`}>Function and beauty</div>
+                    <div className='flex flex-col sm:flex-row items-center justify-center gap-[129px] '>
+                        <div className='sm:w-[530px] flex flex-col gap-[28px]'>
+                            <div className={`${styles.h6_60} text-[30px] sm:text-[60px] font-[600] capitalize sm:w-[517px] tracking-[-1.8px]`}>Function and beauty</div>
                             <div className={`${styles.body_20_regular} leading-[34px]`}>Volutpat est velit egestas dui id. Arcu felis bibendum ut tristique et egestas quis ipsum. Sed risus pretium quam vulputate. Aliquam id diam maecenas.</div>
                         </div>
                         <div>

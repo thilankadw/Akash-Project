@@ -39,7 +39,7 @@ const Cart = () => {
 
     let processing = 3;
 
-    const totalAmount = subTotal + subTotal*(processing/100)
+    const totalAmount = (subTotal + subTotal * (processing / 100)).toFixed(2);
 
     //get itemid and quantity from cart array for create order
     const items = [];
@@ -78,9 +78,9 @@ const Cart = () => {
 
                         cart && cart.length > 0 ?
 
-                        <div className='flex items-start justify-center gap-[150px]'>
+                        <div className='flex flex-col sm:flex-row items-start justify-center gap-[150px] w-[330px] sm:w-[900px]'>
 
-                            <div className='flex flex-col gap-[30px]'>
+                            <div className='flex flex-col gap-[30px] w-[330px] sm:w-full ml-[20px] sm:ml-0'>
 
                                 {cart.map((item) => {
                                     const productId = item.productId;
@@ -89,7 +89,7 @@ const Cart = () => {
                                         <div className='flex items-start gap-[40px]' key={item._id}>
                                             <div className='w-[100px] overflow-hidden'><img src={item.cartImage} className='rounded-[5px]' /></div>
                                             <div className='flex flex-col gap-[10px]'>
-                                                <div className={`${styles.body_18_regular} flex gap-[40px] w-[300px]`}>{item.productName}<div>{item.quantity}x</div></div>
+                                                <div className={`${styles.body_18_regular} flex gap-[20px] w-[130px] sm:w-[300px]`}>{item.productName}<div>{item.quantity}x</div></div>
                                                 <div className={`${styles.body_14_regular} flex`}>$  <div>{item.productPrice}</div></div>
                                                 <div className={`${styles.body_14_regular}`}>
                                                     <button onClick={() => { dispatch(deleteFromCart(cartDeleteData)) }}><DeleteIcon></DeleteIcon></button>
@@ -101,15 +101,15 @@ const Cart = () => {
 
                             </div>
 
-                            <div className='flex flex-col w-[400px] relative top-[-15px] gap-[20px]'>
-                                <div className={`${styles.body_40_semibols} font-[400]`}>Summary</div>
-                                <div className={`${styles.body_20_regular} flex justify-between`}>Subtotal <div>{subTotal} $</div></div>
-                                <div className={`${styles.body_20_regular} flex justify-between`}>Tax & other processing fees <div>{processing}%</div></div>
-                                <div className={`${styles.body_24_regular} text-[30px] flex justify-between`}>Total<div>{totalAmount} $</div></div>
-                                <div className={`${styles.body_20_regular} flex justify-center mt-[10px]`}>
+                            <div className='flex flex-col w-[300px] sm:w-[400px] relative top-[-15px] gap-[20px] '>
+                                <div className={`${styles.body_40_semibols} font-[400] pl-[30px] sm:pl-0`}>Summary</div>
+                                <div className={`${styles.body_20_regular} flex flex-col sm:flex-row justify-between pl-[30px] sm:pl-0`}>Subtotal <div>{subTotal} $</div></div>
+                                <div className={`${styles.body_20_regular} flex flex-col sm:flex-row justify-between pl-[30px] sm:pl-0`}>Tax & other processing fees <div>{processing}%</div></div>
+                                <div className={`${styles.body_24_regular} text-[30px] w-[300px] flex justify-center gap-[50px] sm:gap-[120px]`}>Total<div>{totalAmount} $</div></div>
+                                <div className={`${styles.body_20_regular} flex flex-col sm:flex-row justify-center items-center mt-[10px] pl-[20px] sm:pl-0`}>
                                     <button 
                                         onClick={() => {dispatch(createOrder(ordertDetails));}}
-                                        className='bg-black text-white py-[11px] px-[90px] rounded-[35px]'
+                                        className='bg-black text-white py-[11px] px-[80px] rounded-[35px]'
                                     >
                                         Place Order
                                     </button>

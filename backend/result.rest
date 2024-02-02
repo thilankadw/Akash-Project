@@ -1,0 +1,2 @@
+# GET http://localhost:3090/test
+POST http://localhost:3090/api/product/all-products?page=2&limit=2

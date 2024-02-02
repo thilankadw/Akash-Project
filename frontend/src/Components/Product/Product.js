@@ -7,10 +7,10 @@ const Product = (props) => {
 
         <>
             <div>
-                <div className='mb-[60px]'>
+                <div className='mb-[60px] w-[330px] sm:w-full'>
                     <Link to={`/product/${props.ProductId}`}>
                         <div className='w-[410px] overflow-hidden'>
-                            <img src={props.ImageLink} className='rounded-[10px] w-[500px]'/>
+                            <img src={props.ImageLink} className='rounded-[10px] w-[300px] sm:w-[500px]'/>
                         </div>
                     </Link>
                     <div className={`${styles.body_20_regular} text-[#000] mt-[33px]`}>{props.ProductName}</div>

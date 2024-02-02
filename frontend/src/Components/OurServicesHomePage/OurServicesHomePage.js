@@ -1,4 +1,3 @@
-import { Link } from "react-router-dom";
 import CarouselImage1 from '../../Assets/Home Page/hero_image_5.png';
 import CarouselImage2 from '../../Assets/Home Page/hero_image_6.png';
 import CarouselImage3 from '../../Assets/Home Page/hero_image_7.png';
